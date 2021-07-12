@@ -7,6 +7,7 @@ if (process.env.MOD_ENV !== "production") {
 const app = express();
 const expressLayouts = require("express-ejs-layouts");
 const indexRouter = require("./routes/index");
+const authorRouter = require("./routes/authors");
 
 const port = process.env.PORT || 3000;
 
@@ -23,7 +24,9 @@ app.set("views", __dirname + "/views");
 app.set("layout", "layouts/layout");
 app.use(expressLayouts);
 app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
 app.use("/", indexRouter);
+app.use("/authors", authorRouter);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
